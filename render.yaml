@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: mutant-detector-api
+    runtime: java
+    buildCommand: ./gradlew clean bootJar -x test
+    startCommand: java -Dserver.port=$PORT -jar build/libs/mutant-detector-0.0.1-SNAPSHOT.jar
+    envVars:
+      - key: JAVA_TOOL_OPTIONS
+        value: -Xmx512m
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
