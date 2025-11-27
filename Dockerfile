@@ -3,9 +3,13 @@ FROM gradle:8.5-jdk21 AS build
 
 WORKDIR /app
 
-# Copiar archivos de Gradle
-COPY build.gradle settings.gradle gradlew ./
+# Copiar archivos de configuración de Gradle
+COPY build.gradle settings.gradle ./
 COPY gradle ./gradle
+COPY gradlew ./
+
+# Dar permisos de ejecución a gradlew
+RUN chmod +x gradlew
 
 # Copiar código fuente
 COPY src ./src
@@ -24,5 +28,9 @@ COPY --from=build /app/build/libs/*.jar app.jar
 # Exponer el puerto
 EXPOSE 8080
 
+# Variables de entorno por defecto
+ENV PORT=8080
+ENV JAVA_OPTS="-Xmx512m"
+
 # Comando para ejecutar la aplicación
-ENTRYPOINT ["java", "-Dserver.port=${PORT:-8080}", "-Xmx512m", "-jar", "app.jar"]
+ENTRYPOINT java $JAVA_OPTS -Dserver.port=$PORT -jar app.jar
