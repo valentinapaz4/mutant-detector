@@ -62,7 +62,7 @@ GET https://mutant-detector-8hi0.onrender.com/stats
 ### Pasos
 ```bash
 # Clonar repositorio
-git clone https://github.com/TU_USUARIO/mutant-detector.git
+https://github.com/valentinapaz4/mutant-detector/tree/main
 cd mutant-detector
 
 # Ejecutar
